@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="text-center font-weight-bold text-danger">Connexion</h1>
+  <hr>
+  <h5 class="text-center font-italic">Cette page vous permet de vous authentifier</h5>
+</div>
+
+<div class="container d-flex justify-content-center mt-5">
+  <%= render "devise/shared/links" %>
+</div>
+
+<div class="container mt-5">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  
+    <div class="field form-group">
+      <%= f.label :email, "Adresse email :" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password, "Mot de passe :" %><br />
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field form-group">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, "Se souvenir de moi" %>
+      </div>
+    <% end %>
+
+    <div class="actions text-right">
+      <%= f.submit "Se connecter", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

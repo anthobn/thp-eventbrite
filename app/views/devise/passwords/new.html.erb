@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="text-center font-weight-bold text-danger">Oubli de mot de passe</h1>
+  <hr>
+  <h5 class="text-center font-italic">Cette page vous permet de réinitialiser votre mot de passe</h5>
+</div>
+
+<div class="container d-flex justify-content-center mt-5">
+  <%= render "devise/shared/links" %>
+</div>
+
+<div class="container mt-5">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field form-group">
+      <%= f.label :email, "Votre adresse email :" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <div class="actions text-center">
+      <%= f.submit "Envoyez-moi les instruction de reinitialisation", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

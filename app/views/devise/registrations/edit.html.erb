@@ -1,0 +1,63 @@
+<div class="container">
+  <h1 class="text-center font-weight-bold text-danger">Edition de l'utilisateur <%= current_user.first_name %> <%= current_user.last_name %></h1>
+  <hr>
+  <h5 class="text-center font-italic">Cette page vous permet de modifier vos informations personnelles</h5>
+</div>
+
+<div class="container mt-5">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field form-group">
+      <%= f.label :first_name, "Votre prénom :" %><br />
+      <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :last_name, "Votre nom :" %><br />
+      <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control" %>
+    </div>
+    
+    <div class="field form-group">
+      <%= f.label :email, "Votre adresse email :" %><br />
+      <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= f.label :description, "Une description de vous :" %><br />
+      <%= f.text_area :description, autocomplete: "description", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password, "Nouveau mot de passe :" %> <i>(laissez vide si vous ne souhaitez pas modifier votre mot de passe)</i><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      <% if @minimum_password_length %>
+        <em><%= @minimum_password_length %> caractères minimum</em>
+      <% end %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password_confirmation, "Nouveau mot de passe (confirmation) :" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+    <br>
+    <hr>
+    <div class="field form-group font-weight-bold">
+      <%= f.label :current_password, "Mot de passe actuel :" %> <i>(nous avons besoin de votre mot de passe actuel pour confirmer votre identité)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+    </div>
+
+    <div class="actions text-right">
+      <%= f.submit "Mettre à jour", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="container text-center mt-5">
+  <h1 class="text-center font-weight-bold text-danger">Suppression du compte</h1>
+  <p class="mt-2"> La suppression de votre compte est irréversible. Aucune donnée ne pourra être récupérée après la suppression ! <%= button_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Etes vous sûr ?" }, method: :delete, class: "btn btn-danger" %></p>
+</div>
