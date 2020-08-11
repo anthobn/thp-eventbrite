@@ -10,11 +10,11 @@ Event.destroy_all
 Attendance.destroy_all
 
 50.times do |x|
-  user = User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, description: Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false))
+  user = User.create! :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name, :email => Faker::Internet.email, :description => Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false), :password => 'topsecret', :password_confirmation => 'topsecret'
 end
 
 10.times do |x|
-  event = Event.create!(title: Faker::Lorem.paragraph_by_chars(number: 12, supplemental: false), start_date: Time.now, duration: 15, user_admin_id: User.all.sample.id, description: Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false), price: rand(100..10000), location: Faker::Address.city)
+  event = Event.create!(title: Faker::Lorem.paragraph_by_chars(number: 12, supplemental: false), start_date: Time.now + 20, duration: 15, user_admin_id: User.all.sample.id, description: Faker::Lorem.paragraph_by_chars(number: 25, supplemental: false), price: rand(100..1000), location: Faker::Address.city)
 end
 
 30.times do |x|
