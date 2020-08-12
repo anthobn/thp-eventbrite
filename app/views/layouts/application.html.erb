@@ -24,11 +24,12 @@
             <a class="nav-link" href="/">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark btn btn-success" href="#">Nouvel Évènement</a>
+            <a class="nav-link text-dark btn btn-success" href="<%= new_event_path %>">Nouvel Évènement</a>
           </li>
         </ul>
         <% if user_signed_in? %>
-          <a href="<%= edit_user_registration_path %>" class="btn btn-primary mr-1">Mon profil</a>
+          <a href="<%= user_path(current_user.id) %>" class="btn btn-primary mr-1">Voir mon profil</a>
+          <a href="<%= edit_user_registration_path %>" class="btn btn-warning mr-1">Modifier mes infos</a>
           <a href="<%= destroy_user_session_path %>" class="btn btn-danger" data-method="DELETE">Se déconnecter</a>
         <% else %>
           <a href="<%= new_user_registration_path %>" class="btn btn-primary mr-1">S'inscrire</a>

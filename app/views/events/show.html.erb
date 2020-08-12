@@ -1,0 +1,36 @@
+<main>
+  <div class="container mt-5">
+    <h1 class="text-center font-weight-bold text-danger">Consultation d'un évènement</h1>
+    <hr>
+    <h3 class="text-center font-italic">Retrouvez sur cette page le détail de l'évènement n°<%= @event.id %></h3>
+  </div>
+
+  <div class="container mt-5">
+    <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Durée</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Description</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Localisation</th>
+        <th scope="col">Administrateur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @event.id %></th>
+        <td><%= @event.start_date %></td>
+        <td><%= @event.duration %></td>
+        <td><%= @event.title %></td>
+        <td><%= @event.description %></td>
+        <td><%= @event.price %></td>
+        <td><%= @event.location %></td>
+        <td><%= @event.user_admin.first_name %> <%= @event.user_admin.last_name %></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+</main>

@@ -3,8 +3,11 @@
     <h1 class="text-center font-weight-bold text-danger">Consultation Fiche Utilisateur</h1>
     <hr>
     <h3 class="text-center font-italic">Retrouvez sur cette page le détail de l'utilisateur n°<%= @user.id %></h3>
-    
-    <table class="table table-bordered mt-5 text-center">
+  </div>
+
+  <div class="container mt-5">
+    <p class="h5 font-weight-bold font-italic">Vos informations personnelles :</p>
+    <table class="table table-bordered text-center">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -26,42 +29,33 @@
       </tr>
     </tbody>
     </table>
+    <div class="text-right">
+      <a href="<%= edit_user_registration_path %>" class="btn btn-primary mr-1">Modifier mes informations personnelles</a>
+    </div>
   </div>
 
   <div class="container mt-5">
-    <h1 class="text-center font-weight-bold text-danger">Evènements administrés</h1>
     <hr>
-    <h3 class="text-center font-italic">Retrouvez ci-dessous des évènements que vous administrez</h3>
+    <p class="h5 font-weight-bold font-italic">Vos évènements administrés :</p>
+    <% i = 0 %>
+    <% if @user.events_admin.count > 0%>
+      <%@user.events_admin.each do |event|%>
 
-    <div class="container">
-    <div class="row">
-
-      <% i = 0 %>
-      <% @events.each do |event| %>
-        <% if i < 3 %>
-
-          <div class="col-md-4 p-2">
-            <h2><%= event.title %></h2>
-            <p><%= event.description %></p>
-            <p><a class="btn btn-secondary" href="#" role="button">Consulter l'évènement &raquo;</a></p>
+        <a href="<%=event_path(event.id) %>" class="list-group-item list-group-item-action <%= 'active' if i%2==0 %>">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= event.title %></h5>
+            <small><%= event.created_at %></small>
           </div>
+          <p class="mb-1"><%= event.description %></p>
+          <small>Administré par : <%= @user.first_name %> <%= @user.last_name %></small>
+        </a>
 
-          <% i += 1 %>
+        <%i += 1%>
 
-        <%else%>
-
-          <% i = 1%>
-
-          </div>
-          <div class="row">
-            <div class="col-md-4 p-2">
-              <h2><%= event.title %></h2>
-              <p><%= event.description %></p>
-              <p><a class="btn btn-secondary" href="#" role="button">Consulter l'évènement &raquo;</a></p>
-            </div>
-
-        <%end%>
       <%end%>
 
+    <%else%>
+      <p class="h5 text-center font-weight-bold mt-5">Aucun évènement administré</p>
+    <%end%>
   </div>
 </main>
