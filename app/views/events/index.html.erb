@@ -1,2 +1,43 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Bienvenue sur EventBrite !</h1>
+      <p>Grâce à EventBrite, vous pouvez facilement consulter les évènements de la ville de Nice. Vous souhaitez créer un évènement ? Avec EventBrite, vous pouvez facilement faire connaître votre évènement et gérer les participants !</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Créer un évènement</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+      <% i = 0 %>
+      <% @events.each do |event| %>
+        <% if i < 3 %>
+
+          <div class="col-md-4 p-2">
+            <h2><%= event.title %></h2>
+            <p><%= event.description %></p>
+            <p><a class="btn btn-secondary" href="#" role="button">Consulter l'évènement &raquo;</a></p>
+          </div>
+
+          <% i += 1 %>
+
+        <%else%>
+
+          <% i = 1%>
+
+          </div>
+          <div class="row">
+            <div class="col-md-4 p-2">
+              <h2><%= event.title %></h2>
+              <p><%= event.description %></p>
+              <p><a class="btn btn-secondary" href="#" role="button">Consulter l'évènement &raquo;</a></p>
+            </div>
+
+        <%end%>
+      <%end%>
+  </div>
+</main>
+
