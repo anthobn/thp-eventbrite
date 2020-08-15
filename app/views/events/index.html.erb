@@ -6,6 +6,12 @@
     </div>
   <%end%>
 
+  <% if flash[:success] %>
+    <div class="alert alert-success mt-3" role="alert">
+      <p class="h5 text-center font-weight-bold"><%= flash[:success] %></p>
+    </div>
+  <%end%>
+
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Bienvenue sur EventBrite !</h1>

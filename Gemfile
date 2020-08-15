@@ -50,6 +50,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'table_print'
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -65,4 +66,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'faker'
 gem 'devise'
-gem 'dotenv-rails'
+gem 'stripe'

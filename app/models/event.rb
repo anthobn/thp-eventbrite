@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  has_many :attendances
+  has_many :attendances, dependent: :destroy
   has_many :users, through: :attendances
   belongs_to :user_admin, class_name: "User"
 
@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   validates :duration, presence: true, numericality: { only_integer: true }, if: :multiple_of_5?
   validates :title, presence: true, length: { in: 5..140 }
   validates :description, presence: true, length: { in: 20..1000  }
-  validates :price, presence: true, numericality: { only_integer: true }, inclusion: { :in => 1..1000, message: "Please enter an allowed price between 1 - 1000" }
+  validates :price, presence: true, numericality: { only_integer: true }, inclusion: { :in => 0..1000, message: "Please enter an allowed price between 0 - 1000" }
   validates :location, presence: true
 
 
@@ -28,6 +28,11 @@ class Event < ApplicationRecord
     else
       errors.add(:duration, 'must be a multiple of 5')
     end
+  end
+
+  def is_free?
+    return true if self.price == 0
+    return false
   end
 
 end

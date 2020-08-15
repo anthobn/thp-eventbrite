@@ -5,6 +5,12 @@
     <h3 class="text-center font-italic">Retrouvez sur cette page le détail de l'évènement n°<%= @event.id %></h3>
   </div>
 
+  <% if flash[:success] %>
+    <div class="alert alert-success mt-5" role="alert">
+      <p class="h5 text-center font-weight-bold"><%= flash[:success] %></p>
+    </div>
+  <%end%>
+
   <div class="container mt-5">
     <table class="table table-bordered text-center">
     <thead>
@@ -33,4 +39,21 @@
     </tbody>
     </table>
   </div>
+  
+  <% if current_user %>
+    <% if current_user == @event.user_admin %>
+      <div class="alert alert-success mt-5 text-center" role="alert">
+        <p class="h5 text-center font-weight-bold">Vous êtes l'administrateur de cet évènement</p>
+        <a href="<%= attendance_path(@event.id) %>" class="btn btn-primary mt-3">Gestion de l'évènement</a>
+      </div>
+    <% elsif current_user.events.include?(@event) %>
+      <div class="alert alert-success mt-5" role="alert">
+        <p class="h5 text-center font-weight-bold">Vous participez à cet évènement</p>
+      </div>
+    <% else %>
+      <div class="container text-center">
+        <a href="<%= new_attendance_path(event_id: @event.id) %>" class="btn btn-success">Participer à l'évènement</a>
+      </div>
+    <% end %>
+  <%end%>
 </main>

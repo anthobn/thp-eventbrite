@@ -1,0 +1,82 @@
+<main>
+  <div class="container mt-5">
+    <h1 class="text-center font-weight-bold text-danger">Inscription à un évènement</h1>
+    <hr>
+    <h3 class="text-center font-italic">Cette page vous permet de vous inscrire à un évènement</h3>
+  </div>
+
+  <% if flash[:error] %>
+    <div class="alert alert-danger mt-5" role="alert">
+      <p class="h5 text-center font-weight-bold"><%= flash[:error] %></p>
+    </div>
+  <%end%>
+  
+  <div class="container mt-5">
+    <table class="table table-striped">
+      <tbody>
+          <tr>
+              <th>Date de début</th>
+              <td><%= @event.start_date %></td>
+          </tr>
+          <tr>
+              <th>Durée</th>
+              <td><%= @event.duration %> minutes</td>
+          </tr>
+          <tr>
+              <th>Titre</th>
+              <td><%= @event.title %></td>
+          </tr>
+          <tr>
+              <th>Description</th>
+              <td><%= @event.description %></td>
+          </tr>
+          <tr>
+              <th>Prix</th>
+              <td><%= @event.price %> €</td>
+          </tr>
+          <tr>
+              <th>Localisation</th>
+              <td><%= @event.location %></td>
+          </tr>
+          <tr>
+              <th>Administrateur</th>
+              <td><%= @event.user_admin.first_name %> <%= @event.user_admin.last_name %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container text-center">
+    <% if !@event.is_free? %>
+      <%= form_tag attendances_path do %>
+        <%= hidden_field_tag 'eventid', @event.id  %>
+        <article>
+          <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+          <% end %>
+          <label class="amount">
+          <p class="font-italic">Vous devez régler le montant indiqué pour participer à cet évènement. Le paiement est pris en charge par le prestataire STRIPE.</p>
+            <span class="font-weight-bold">Montant: <%= @event.price %> €</span>
+          </label>
+        </article>
+
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                data-description="Inscription à l'évènement <%= @event.title %>"
+                data-amount="<%= @event.price * 100 %>"
+                data-currency="eur"
+                data-locale="auto">
+        </script>
+      <% end %>
+    <%else%>
+      <%= form_tag attendances_path do %>
+        <%= hidden_field_tag 'eventid', @event.id  %>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success">S'inscrire à l'évènement</button>
+        </div>
+      <%end%>
+    <%end%>
+  </div>
+</main>

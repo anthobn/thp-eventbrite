@@ -1,0 +1,80 @@
+<main>
+  <div class="container mt-5">
+    <h1 class="text-center font-weight-bold text-danger">Management évènement</h1>
+    <hr>
+    <h3 class="text-center font-italic">Cette page vous permet de gérer votre évènement</h3>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="<%= edit_event_path(@event.id) %>" class="btn btn-primary mr-1">Éditer l'évènement</a>
+    <a href="<%= event_path(@event.id) %>" class="btn btn-danger mr-1" data-confirm="Étes-vous sûr de vouloir supprimer cet évènement ?" data-method="DELETE">Supprimer l'évènement</a>
+  </div>
+
+  <div class="container mt-5">
+    <p class="h5 font-weight-bold font-italic">Caractéristiques évènement :</p>
+    <table class="table table-striped">
+      <tbody>
+          <tr>
+              <th>Date de début</th>
+              <td><%= @event.start_date %></td>
+          </tr>
+          <tr>
+              <th>Durée</th>
+              <td><%= @event.duration %> minutes</td>
+          </tr>
+          <tr>
+              <th>Titre</th>
+              <td><%= @event.title %></td>
+          </tr>
+          <tr>
+              <th>Description</th>
+              <td><%= @event.description %></td>
+          </tr>
+          <tr>
+              <th>Prix</th>
+              <td><%= @event.price %> €</td>
+          </tr>
+          <tr>
+              <th>Localisation</th>
+              <td><%= @event.location %></td>
+          </tr>
+          <tr>
+              <th>Administrateur</th>
+              <td><%= @event.user_admin.first_name %> <%= @event.user_admin.last_name %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-5">
+    <p class="h5 font-weight-bold font-italic">Liste des participants :</p>
+    <%if @event.users.count > 0%>
+      <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th scope="col">ID Utilisateur</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date d'inscription à l'évènement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @event.users.each do |user|%>
+          <tr>
+            <th scope="row"><%= user.id %></th>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
+            <td><%= user.description %></td>
+            <td><%= Attendance.where(user: user, event: @event)[0].created_at %></td>
+          </tr>
+        <%end%>
+      </tbody>
+      </table>
+    <%else%>
+      <div class="alert alert-danger mt-3" role="alert">
+        <p class="h5 font-weight-bold text-center">Aucun participant pour cet évènement</p>
+      </div>
+    <%end%>
+  </div>  
+</main>
