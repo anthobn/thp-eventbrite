@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :users, through: :attendances
   belongs_to :user_admin, class_name: "User"
+  has_one_attached :event_pic
 
   validates :start_date, presence: true, if: :mydate_is_correct_date?
   validates :duration, presence: true, numericality: { only_integer: true }, if: :multiple_of_5?
@@ -9,6 +10,7 @@ class Event < ApplicationRecord
   validates :description, presence: true, length: { in: 20..1000  }
   validates :price, presence: true, numericality: { only_integer: true }, inclusion: { :in => 0..1000, message: "Please enter an allowed price between 0 - 1000" }
   validates :location, presence: true
+  validate :has_attachment?
 
 
   def mydate_is_correct_date?
@@ -33,6 +35,14 @@ class Event < ApplicationRecord
   def is_free?
     return true if self.price == 0
     return false
+  end
+
+  def has_attachment?
+    if self.event_pic.attached?
+      return true
+    else
+      errors.add(:event_pic, "Il est obligatoire d'ajouter une photo valide")
+    end
   end
 
 end

@@ -49,6 +49,11 @@
         <%= f.text_field :location, class: "form-control" %>
       </div>
 
+      <div class="form-group">
+        <label>Photo de l'évènement :</label> <br>
+        <%= f.file_field :event_pic, direct_upload: true, accept: "image/png,image/gif,image/jpeg" %>
+      </div>
+
       <div class="text-right">
         <button type="submit" class="btn btn-primary">Créer l'évènement</button>
       </div>

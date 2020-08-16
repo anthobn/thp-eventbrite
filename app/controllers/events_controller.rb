@@ -30,8 +30,12 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.update(post_params)
 
-    flash[:success] = "L'évènement a été mis à jour avec succès !"
-    redirect_to root_path
+    if @event.save
+      flash[:success] = "L'évènement a été mis à jour avec succès !"
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def show
@@ -48,6 +52,6 @@ class EventsController < ApplicationController
   private
 
   def post_params
-    return params.require(:event).permit(:start_date, :duration, :title, :description, :price, :location)
+    return params.require(:event).permit(:start_date, :duration, :title, :description, :price, :location, :event_pic)
   end
 end
