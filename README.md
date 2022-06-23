@@ -8,6 +8,6 @@ Cette application de gestion d'évènement a été développée dans le cadre de
 
 Cette application permet de gérer un panel d'évènements dans une ville. Un utilisateur peut publier un évènement afin que d'autres utilisateurs adhèrent à l'évènement. Un système de paiement avec Strype a été implémenté.
 
-## Lien HEROKU
+## Accès au site
 
-L'application est consultable sur HEROKU en [cliquant ici](https://murmuring-temple-89689.herokuapp.com/)
+L'application est consultable via HEROKU en [cliquant ici](https://thpeventbrite06.herokuapp.com/)
